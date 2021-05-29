@@ -9,7 +9,7 @@ namespace Client
     {
         private static async Task RequestAsync(string command)
         {
-            HttpWebRequest request = WebRequest.CreateHttp("https://localhost:80/?command=" + command);
+            HttpWebRequest request = WebRequest.CreateHttp("http://localhost:8080/?command=" + command);
             HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
             using(Stream stream = response.GetResponseStream())
             {
@@ -32,8 +32,8 @@ namespace Client
                 }
                 catch (WebException)
                 {
-                    Console.WriteLine("Connection failed. Press any key to try reconnect.");
-                    Console.ReadKey();
+                    Console.WriteLine("Connection failed. Press Enter to try reconnect.");
+                    Console.ReadLine();
                     continue;
                 }
                 command = Console.ReadLine();

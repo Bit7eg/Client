@@ -2,14 +2,14 @@
 
 FROM mcr.microsoft.com/dotnet/runtime:3.1 AS base
 WORKDIR /app
-EXPOSE 80 443
+EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["Client/Client.csproj", "Client/"]
+COPY ["Client.csproj", "Client/"]
 RUN dotnet restore "Client/Client.csproj"
-COPY . .
 WORKDIR "/src/Client"
+COPY . .
 RUN dotnet build "Client.csproj" -c Release -o /app/build
 
 FROM build AS publish
